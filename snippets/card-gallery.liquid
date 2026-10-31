@@ -212,15 +212,18 @@
       {%- endif -%}
     </a>
   {% elsif product != blank and product.media.size == 0 %}
-    <div class="product-card-gallery__title-placeholder">
-      <a
-        class="contents"
-        ref="cardGalleryLink"
-        href="{{ product.url }}"
-      >
-        <span class="title-text">{{- product.title -}}</span>
-      </a>
-    </div>
+    {% liquid
+      assign no_image_variant = product.id | modulo: 3 | plus: 1
+      assign no_image_name = 'product-apparel-' | append: no_image_variant
+    %}
+    <a
+      class="card-gallery__no-image"
+      ref="cardGalleryLink"
+      href="{{ product.url }}"
+      aria-label="{{ product.title | escape }}"
+    >
+      {{- no_image_name | placeholder_svg_tag: 'card-gallery__no-image-svg' -}}
+    </a>
   {% elsif product == blank %}
     {% liquid
       capture placeholder_image
@@ -264,6 +267,22 @@
 
   .card-gallery svg {
     aspect-ratio: var(--gallery-aspect-ratio, var(--ratio));
+  }
+
+  .card-gallery__no-image {
+    display: block;
+    border-radius: var(--product-corner-radius);
+    overflow: hidden;
+    background-color: rgb(var(--color-foreground-rgb) / var(--opacity-5));
+  }
+
+  .card-gallery__no-image-svg {
+    display: block;
+    width: 100%;
+    height: 100%;
+    aspect-ratio: var(--gallery-aspect-ratio, var(--ratio));
+    object-fit: cover;
+    opacity: 0.55;
   }
 
   .product-card-gallery__title-placeholder {
