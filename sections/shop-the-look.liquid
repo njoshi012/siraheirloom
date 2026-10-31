@@ -1,0 +1,674 @@
+{%- liquid
+  assign bg_rgb = section.settings.background_color | color_to_rgb
+  assign text_rgb = section.settings.text_color | color_to_rgb
+-%}
+
+<style>
+  #ShopTheLook-{{ section.id }} {
+    --stl-pad-top: {{ section.settings.padding_top }}px;
+    --stl-pad-bottom: {{ section.settings.padding_bottom }}px;
+    --stl-card-width: {{ section.settings.card_width }}px;
+    {% if bg_rgb != 'rgba(0, 0, 0, 0.0)' %}
+      --stl-bg: {{ section.settings.background_color }};
+    {% endif %}
+    {% if text_rgb != 'rgba(0, 0, 0, 0.0)' %}
+      --stl-text: {{ section.settings.text_color }};
+    {% endif %}
+  }
+
+  .stl {
+    padding-block: var(--stl-pad-top) var(--stl-pad-bottom);
+    background: var(--stl-bg, transparent);
+    color: var(--stl-text, inherit);
+  }
+
+  .stl__heading {
+    margin: 0 auto calc(var(--stl-pad-top) * 0.5 + 8px);
+    padding-inline: 20px;
+    text-align: center;
+  }
+
+  .stl__track {
+    display: flex;
+    gap: 16px;
+    overflow-x: auto;
+    scroll-snap-type: x proximity;
+    scrollbar-width: none;
+    padding: 4px 20px 12px;
+    margin-inline: auto;
+    width: max-content;
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+
+  .stl__track::-webkit-scrollbar {
+    display: none;
+  }
+
+  .stl__item {
+    flex: 0 0 auto;
+    width: min(var(--stl-card-width), 56vw);
+    scroll-snap-align: start;
+    display: flex;
+    flex-direction: column;
+    background: #fff;
+    color: #1a1a1a;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 10px rgb(0 0 0 / 0.08);
+  }
+
+  .stl__media {
+    position: relative;
+    display: block;
+    width: 100%;
+    padding: 0;
+    border: 0;
+    aspect-ratio: 0.62;
+    background: #000;
+    cursor: pointer;
+    overflow: hidden;
+  }
+
+  .stl__video,
+  .stl__media svg {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .stl__media svg {
+    opacity: 0.4;
+    background: #ddd;
+  }
+
+  .stl__play {
+    position: absolute;
+    inset-block-end: 10px;
+    inset-inline-end: 10px;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: rgb(0 0 0 / 0.5);
+    display: grid;
+    place-items: center;
+    pointer-events: none;
+  }
+
+  .stl__play::before {
+    content: '';
+    margin-inline-start: 2px;
+    border-style: solid;
+    border-width: 6px 0 6px 10px;
+    border-color: transparent transparent transparent #fff;
+  }
+
+  .stl__product {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 10px 16px;
+    text-align: center;
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .stl__product-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    max-width: 100%;
+  }
+
+  .stl__product-image {
+    width: 52px;
+    height: 52px;
+    object-fit: contain;
+  }
+
+  .stl__product-title {
+    max-width: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    font-size: 0.9rem;
+    font-weight: 600;
+  }
+
+  .stl__product-brand {
+    font-size: 0.75rem;
+    opacity: 0.7;
+  }
+
+  .stl__price {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 6px;
+    font-size: 0.85rem;
+  }
+
+  .stl__price s {
+    opacity: 0.55;
+  }
+
+  /* Lightbox */
+  .stl-modal {
+    width: 100vw;
+    height: 100dvh;
+    max-width: 100vw;
+    max-height: 100dvh;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background: rgb(0 0 0 / 0.92);
+    color: #fff;
+    overflow: hidden;
+  }
+
+  .stl-modal::backdrop {
+    background: rgb(0 0 0 / 0.92);
+  }
+
+  .stl-modal__scroller {
+    height: 100%;
+    overflow-y: auto;
+    scroll-snap-type: y mandatory;
+    scrollbar-width: none;
+    overscroll-behavior: contain;
+  }
+
+  .stl-modal__scroller::-webkit-scrollbar {
+    display: none;
+  }
+
+  .stl-modal__slide {
+    position: relative;
+    height: 100dvh;
+    display: grid;
+    place-items: center;
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+  }
+
+  .stl-modal__frame {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background: #000;
+  }
+
+  @media (min-width: 750px) {
+    .stl-modal__frame {
+      width: auto;
+      height: min(92dvh, 820px);
+      aspect-ratio: 9 / 16;
+      border-radius: 12px;
+      overflow: hidden;
+    }
+  }
+
+  .stl-modal__video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .stl-modal__product {
+    position: absolute;
+    inset-inline: 12px;
+    inset-block-end: 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px;
+    border-radius: 10px;
+    background: #fff;
+    color: #1a1a1a;
+    text-decoration: none;
+  }
+
+  .stl-modal__product img {
+    width: 52px;
+    height: 52px;
+    object-fit: contain;
+    flex: none;
+  }
+
+  .stl-modal__product-info {
+    min-width: 0;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    font-size: 0.9rem;
+  }
+
+  .stl-modal__product-title {
+    font-weight: 600;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+
+  .stl-modal__cta {
+    flex: none;
+    padding: 8px 14px;
+    border-radius: 999px;
+    background: #1a1a1a;
+    color: #fff;
+    font-size: 0.8rem;
+    font-weight: 600;
+  }
+
+  .stl-modal__btn {
+    position: absolute;
+    z-index: 2;
+    width: 40px;
+    height: 40px;
+    border: 0;
+    border-radius: 50%;
+    background: rgb(0 0 0 / 0.55);
+    color: #fff;
+    font-size: 1.25rem;
+    line-height: 1;
+    cursor: pointer;
+    display: grid;
+    place-items: center;
+  }
+
+  .stl-modal__close {
+    inset-block-start: 16px;
+    inset-inline-end: 16px;
+  }
+
+  .stl-modal__sound {
+    inset-block-start: 16px;
+    inset-inline-start: 16px;
+  }
+
+  .stl-modal__nav {
+    inset-inline-end: 24px;
+    display: none;
+  }
+
+  .stl-modal__nav--prev {
+    inset-block-start: calc(50% - 48px);
+  }
+
+  .stl-modal__nav--next {
+    inset-block-start: calc(50% + 8px);
+  }
+
+  @media (min-width: 750px) {
+    .stl-modal__nav {
+      display: grid;
+    }
+  }
+</style>
+
+<section id="ShopTheLook-{{ section.id }}" class="stl" data-section-id="{{ section.id }}">
+  <shop-the-look>
+    {% if section.settings.heading != blank %}
+      <h2 class="stl__heading">{{ section.settings.heading | escape }}</h2>
+    {% endif %}
+
+    <div class="stl__track">
+      {% for block in section.blocks %}
+        {%- liquid
+          assign product = block.settings.product
+          assign video_sources = block.settings.video.sources | sort: 'width'
+          assign thumb_source = video_sources | first
+          assign hd_source = video_sources | last
+        -%}
+        <div
+          class="stl__item"
+          data-stl-item
+          {% if hd_source %}
+            data-hd-src="{{ hd_source.url }}"
+            data-hd-type="{{ hd_source.mime_type }}"
+          {% endif %}
+          {{ block.shopify_attributes }}
+        >
+          <button
+            type="button"
+            class="stl__media"
+            data-stl-open
+            aria-label="{{ product.title | default: section.settings.heading | escape }}"
+          >
+            {% if thumb_source %}
+              <video
+                class="stl__video"
+                muted
+                loop
+                playsinline
+                preload="none"
+                poster="{{ block.settings.video.preview_image | image_url: width: 300 }}"
+              >
+                <source src="{{ thumb_source.url }}" type="{{ thumb_source.mime_type }}">
+              </video>
+              <span class="stl__play" aria-hidden="true"></span>
+            {% else %}
+              {{ 'product-apparel-3' | placeholder_svg_tag }}
+            {% endif %}
+          </button>
+
+          <a
+            class="stl__product"
+            data-stl-product
+            href="{{ product.url | default: '#' }}"
+          >
+            {% if product.featured_image %}
+              {{
+                product.featured_image
+                | image_url: width: 120
+                | image_tag: class: 'stl__product-image', width: 52, height: 52, loading: 'lazy', alt: product.featured_image.alt
+              }}
+            {% endif %}
+            <span class="stl__product-info">
+              {% if section.settings.hide_brand == false and product.vendor != blank %}
+                <span class="stl__product-brand">{{ product.vendor }}</span>
+              {% endif %}
+              <span class="stl__product-title">{{ product.title | default: 'Product title' }}</span>
+              <span class="stl__price">
+                {% if product != blank %}
+                  {% if product.compare_at_price > product.price %}
+                    <s>{{ product.compare_at_price | money }}</s>
+                  {% endif %}
+                  <span>{{ product.price | money }}</span>
+                {% else %}
+                  <span>{{ 1999 | money }}</span>
+                {% endif %}
+              </span>
+            </span>
+          </a>
+        </div>
+      {% endfor %}
+    </div>
+
+    <template data-stl-labels>
+      <span data-close>{{ 'Close' | escape }}</span>
+      <span data-cta>{{ section.settings.cta_label | escape }}</span>
+    </template>
+  </shop-the-look>
+</section>
+
+<script>
+  if (!customElements.get('shop-the-look')) {
+    class ShopTheLook extends HTMLElement {
+      connectedCallback() {
+        this.items = Array.from(this.querySelectorAll('[data-stl-item]'));
+        this.cta = this.querySelector('[data-cta]')?.textContent || 'Shop now';
+        this.closeLabel = this.querySelector('[data-close]')?.textContent || 'Close';
+
+        this.items.forEach((item, index) => {
+          item.querySelector('[data-stl-open]')?.addEventListener('click', () => this.open(index));
+        });
+
+        this.thumbObserver = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              const video = entry.target;
+              if (entry.isIntersecting) video.play().catch(() => {});
+              else video.pause();
+            });
+          },
+          { threshold: 0.4 }
+        );
+        this.querySelectorAll('.stl__video').forEach((video) => this.thumbObserver.observe(video));
+      }
+
+      disconnectedCallback() {
+        this.thumbObserver?.disconnect();
+        this.modal?.remove();
+      }
+
+      build() {
+        const modal = document.createElement('dialog');
+        modal.className = 'stl-modal';
+        modal.setAttribute('aria-label', 'Videos');
+
+        const scroller = document.createElement('div');
+        scroller.className = 'stl-modal__scroller';
+
+        this.slides = this.items.map((item) => {
+          const slide = document.createElement('div');
+          slide.className = 'stl-modal__slide';
+          const frame = document.createElement('div');
+          frame.className = 'stl-modal__frame';
+
+          const src = item.dataset.hdSrc || item.querySelector('video source')?.src || '';
+          const video = document.createElement('video');
+          video.className = 'stl-modal__video';
+          video.muted = true;
+          video.loop = true;
+          video.playsInline = true;
+          video.preload = 'none';
+          video.dataset.src = src;
+          video.dataset.type = item.dataset.hdType || '';
+          const poster = item.querySelector('video')?.poster;
+          if (poster) video.poster = poster;
+          frame.append(video);
+
+          const product = item.querySelector('[data-stl-product]');
+          if (product && product.getAttribute('href') !== '#') {
+            const link = document.createElement('a');
+            link.className = 'stl-modal__product';
+            link.href = product.href;
+            const img = product.querySelector('img');
+            if (img) {
+              const copy = document.createElement('img');
+              copy.src = img.currentSrc || img.src;
+              copy.alt = img.alt || '';
+              link.append(copy);
+            }
+            const info = document.createElement('span');
+            info.className = 'stl-modal__product-info';
+            const title = document.createElement('span');
+            title.className = 'stl-modal__product-title';
+            title.textContent = product.querySelector('.stl__product-title')?.textContent || '';
+            const price = document.createElement('span');
+            price.textContent = product.querySelector('.stl__price')?.textContent.replace(/\s+/g, ' ').trim() || '';
+            info.append(title, price);
+            const cta = document.createElement('span');
+            cta.className = 'stl-modal__cta';
+            cta.textContent = this.cta;
+            link.append(info, cta);
+            frame.append(link);
+          }
+
+          slide.append(frame);
+          scroller.append(slide);
+          return { slide, video };
+        });
+
+        const button = (cls, label, text) => {
+          const b = document.createElement('button');
+          b.type = 'button';
+          b.className = `stl-modal__btn ${cls}`;
+          b.setAttribute('aria-label', label);
+          b.textContent = text;
+          return b;
+        };
+
+        const close = button('stl-modal__close', this.closeLabel, '×');
+        const sound = button('stl-modal__sound', 'Sound', '\u{1F507}');
+        const prev = button('stl-modal__nav stl-modal__nav--prev', 'Previous video', '↑');
+        const next = button('stl-modal__nav stl-modal__nav--next', 'Next video', '↓');
+
+        close.addEventListener('click', () => modal.close());
+        sound.addEventListener('click', () => {
+          const muted = !this.slides[0].video.muted;
+          this.slides.forEach(({ video }) => (video.muted = muted));
+          sound.textContent = muted ? '\u{1F507}' : '\u{1F50A}';
+        });
+        prev.addEventListener('click', () => this.step(-1));
+        next.addEventListener('click', () => this.step(1));
+        modal.addEventListener('click', (event) => {
+          if (event.target === modal) modal.close();
+        });
+        modal.addEventListener('close', () => {
+          this.slides.forEach(({ video }) => {
+            video.pause();
+            video.removeAttribute('src');
+            video.load();
+          });
+          this.slideObserver?.disconnect();
+        });
+
+        modal.append(scroller, close, sound, prev, next);
+        document.body.append(modal);
+        this.modal = modal;
+        this.scroller = scroller;
+      }
+
+      load(video) {
+        if (video.dataset.src && !video.getAttribute('src')) {
+          video.src = video.dataset.src;
+        }
+      }
+
+      step(direction) {
+        const height = this.scroller.clientHeight;
+        this.scroller.scrollBy({ top: direction * height, behavior: 'smooth' });
+      }
+
+      open(index) {
+        if (!this.modal) this.build();
+        this.modal.showModal();
+
+        this.slideObserver = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              const video = entry.target.querySelector('video');
+              if (entry.isIntersecting) {
+                this.load(video);
+                video.play().catch(() => {});
+              } else {
+                video.pause();
+              }
+            });
+          },
+          { root: this.scroller, threshold: 0.6 }
+        );
+        this.slides.forEach(({ slide }) => this.slideObserver.observe(slide));
+
+        this.slides[index].slide.scrollIntoView({ block: 'start' });
+      }
+    }
+
+    customElements.define('shop-the-look', ShopTheLook);
+  }
+</script>
+
+{% schema %}
+{
+  "name": "Shop the look",
+  "tag": "div",
+  "max_blocks": 12,
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Shop the look"
+    },
+    {
+      "type": "text",
+      "id": "cta_label",
+      "label": "Video popup button text",
+      "info": "Shown on the product bar inside the video popup.",
+      "default": "Shop now"
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_brand",
+      "label": "Hide brand name under products",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "card_width",
+      "min": 140,
+      "max": 260,
+      "step": 10,
+      "unit": "px",
+      "label": "Video card width",
+      "default": 220
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Heading text color",
+      "default": "#00000000"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "#00000000"
+    },
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Top padding",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom padding",
+      "default": 36
+    }
+  ],
+  "blocks": [
+    {
+      "type": "video",
+      "name": "Video",
+      "settings": [
+        {
+          "type": "video",
+          "id": "video",
+          "label": "Video"
+        },
+        {
+          "type": "product",
+          "id": "product",
+          "label": "Product"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Shop the look",
+      "blocks": [
+        { "type": "video" },
+        { "type": "video" },
+        { "type": "video" },
+        { "type": "video" }
+      ]
+    }
+  ]
+}
+{% endschema %}
