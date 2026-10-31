@@ -323,53 +323,6 @@
         "padding_bottom": 40
       }
     },
-    "why_shop_with_us_WUeTV9": {
-      "type": "why-shop-with-us",
-      "blocks": {
-        "feature_dKjBew": {
-          "type": "feature",
-          "settings": {
-            "icon": "shipping",
-            "text": "Free Shipping"
-          }
-        },
-        "feature_b4xG3m": {
-          "type": "feature",
-          "settings": {
-            "icon": "payment",
-            "text": "Secure Payment"
-          }
-        },
-        "feature_jE7z8U": {
-          "type": "feature",
-          "settings": {
-            "icon": "return",
-            "text": "7 days return"
-          }
-        },
-        "feature_fiJFri": {
-          "type": "feature",
-          "settings": {
-            "icon": "quality",
-            "text": "Quality Guaranteed"
-          }
-        }
-      },
-      "block_order": [
-        "feature_dKjBew",
-        "feature_b4xG3m",
-        "feature_jE7z8U",
-        "feature_fiJFri"
-      ],
-      "name": "Why shop with us",
-      "settings": {
-        "heading": "Why Shop With Us ?",
-        "ornament": "diamond",
-        "background_color": "#00000000",
-        "padding_top": 40,
-        "padding_bottom": 40
-      }
-    },
     "section_Le3y9x": {
       "type": "section",
       "blocks": {
@@ -478,6 +431,53 @@
         "border_radius": 0,
         "padding-block-start": 48,
         "padding-block-end": 48
+      }
+    },
+    "why_shop_with_us_WUeTV9": {
+      "type": "why-shop-with-us",
+      "blocks": {
+        "feature_dKjBew": {
+          "type": "feature",
+          "settings": {
+            "icon": "shipping",
+            "text": "Free Shipping"
+          }
+        },
+        "feature_b4xG3m": {
+          "type": "feature",
+          "settings": {
+            "icon": "payment",
+            "text": "Secure Payment"
+          }
+        },
+        "feature_jE7z8U": {
+          "type": "feature",
+          "settings": {
+            "icon": "return",
+            "text": "7 days return"
+          }
+        },
+        "feature_fiJFri": {
+          "type": "feature",
+          "settings": {
+            "icon": "quality",
+            "text": "Quality Guaranteed"
+          }
+        }
+      },
+      "block_order": [
+        "feature_dKjBew",
+        "feature_b4xG3m",
+        "feature_jE7z8U",
+        "feature_fiJFri"
+      ],
+      "name": "Why shop with us",
+      "settings": {
+        "heading": "Why Shop With Us ?",
+        "ornament": "diamond",
+        "background_color": "#00000000",
+        "padding_top": 40,
+        "padding_bottom": 40
       }
     }
   },
