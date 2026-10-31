@@ -146,10 +146,10 @@
 
 {% schema %}
 {
-  "name": "Photo reviews",
+  "name": "Customer testimonials",
   "tag": "div",
   "settings": [
-    { "type": "text", "id": "heading", "label": "Heading", "default": "Reviews" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "What our customers say" },
     {
       "type": "select",
       "id": "ornament",
@@ -168,19 +168,19 @@
   "blocks": [
     {
       "type": "review",
-      "name": "Review",
+      "name": "Testimonial",
       "settings": [
         { "type": "image_picker", "id": "image", "label": "Customer photo" },
         { "type": "range", "id": "rating", "min": 1, "max": 5, "step": 1, "label": "Rating", "default": 5 },
-        { "type": "text", "id": "name", "label": "Customer name", "default": "Customer N." },
+        { "type": "text", "id": "name", "label": "Customer name", "default": "Customer Name" },
         { "type": "checkbox", "id": "verified", "label": "Show verified tick", "default": true },
-        { "type": "textarea", "id": "text", "label": "Review", "default": "I just loved it, very different style, unique and very good fitting and stitching quality." }
+        { "type": "textarea", "id": "text", "label": "Testimonial text", "default": "I just loved it, very different style, unique and very good fitting and stitching quality." }
       ]
     }
   ],
   "presets": [
     {
-      "name": "Photo reviews",
+      "name": "Customer testimonials",
       "blocks": [
         { "type": "review" },
         { "type": "review" },

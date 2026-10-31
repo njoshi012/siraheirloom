@@ -115,24 +115,8 @@
   }
 
   .pc__rating {
-    position: absolute;
-    inset-block-end: 8px;
-    inset-inline-start: 8px;
-    z-index: 1;
-    display: inline-flex;
-    align-items: center;
-    gap: 4px;
-    padding: 2px 7px;
-    border-radius: 4px;
-    background: rgb(255 255 255 / 0.95);
-    color: #1a1a1a;
-    font-size: 0.72rem;
-    font-weight: 600;
-  }
-
-  .pc__rating::before {
-    content: '\2605';
-    color: #2e7d32;
+    min-height: 1.1em;
+    line-height: 1;
   }
 
   .pc__title {
@@ -196,7 +180,6 @@
             assign on_sale = true
             assign saved = product.compare_at_price | minus: product.price | times: 100.0 | divided_by: product.compare_at_price | round
           endif
-          assign rating = product.metafields.reviews.rating.value.rating
         -%}
         <div class="pc__card">
           <a class="pc__media" href="{{ product.url }}" aria-label="{{ product.title | escape }}">
@@ -219,11 +202,11 @@
                 | image_tag: widths: '300, 450, 600, 800', sizes: '(min-width: 750px) 25vw, 45vw', loading: 'lazy', alt: ''
               }}
             {%- endif -%}
-            {%- if section.settings.show_rating and rating != blank -%}
-              <span class="pc__rating">{{ rating | round: 1 }}</span>
-            {%- endif -%}
           </a>
           <a class="pc__title" href="{{ product.url }}">{{ product.title | escape }}</a>
+          {%- if section.settings.show_rating -%}
+            <div class="jdgm-widget jdgm-preview-badge pc__rating" data-id="{{ product.id }}"></div>
+          {%- endif -%}
           <div class="pc__prices">
             <span>{{ product.price | money_with_currency }}</span>
             {% if on_sale %}<s>{{ product.compare_at_price | money_with_currency }}</s>{% endif %}
@@ -247,7 +230,7 @@
 
 {% schema %}
 {
-  "name": "Product carousel",
+  "name": "Featured products slider",
   "tag": "div",
   "settings": [
     { "type": "text", "id": "heading", "label": "Heading", "default": "New Arrivals" },
@@ -273,8 +256,8 @@
     {
       "type": "checkbox",
       "id": "show_rating",
-      "label": "Show rating",
-      "info": "Uses the product's review rating metafield (reviews.rating), if your review app sets one.",
+      "label": "Show Judge.me star rating",
+      "info": "Needs the Judge.me app installed with its app embed turned on (Theme editor > App embeds).",
       "default": true
     },
     { "type": "header", "content": "Layout" },
@@ -286,7 +269,7 @@
     { "type": "range", "id": "padding_bottom", "min": 0, "max": 100, "step": 4, "unit": "px", "label": "Bottom padding", "default": 40 }
   ],
   "presets": [
-    { "name": "Product carousel" }
+    { "name": "Featured products slider" }
   ]
 }
 {% endschema %}
