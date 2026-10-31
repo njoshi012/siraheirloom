@@ -1,0 +1,25 @@
+{% comment %}
+  Section heading with decorative ornaments on both sides.
+  Accepts:
+  - heading: text
+  - ornament: 'leaf' | 'diamond' | 'none'
+  - tag: heading tag, defaults to h2
+{% endcomment %}
+{{ 'ornament-heading.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+  assign orn_tag = tag | default: 'h2'
+  assign orn_kind = ornament | default: 'leaf'
+-%}
+
+{%- if heading != blank -%}
+  <div class="orn-heading orn-heading--{{ orn_kind }}">
+    {%- if orn_kind != 'none' -%}
+      <span class="orn-heading__mark" aria-hidden="true">{% render 'ornament-mark', kind: orn_kind %}</span>
+    {%- endif -%}
+    <{{ orn_tag }} class="orn-heading__title">{{ heading | escape }}</{{ orn_tag }}>
+    {%- if orn_kind != 'none' -%}
+      <span class="orn-heading__mark orn-heading__mark--end" aria-hidden="true">{% render 'ornament-mark', kind: orn_kind %}</span>
+    {%- endif -%}
+  </div>
+{%- endif -%}

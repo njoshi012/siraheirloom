@@ -1,0 +1,193 @@
+<style>
+  #PhotoReviews-{{ section.id }} {
+    --pr-pad-top: {{ section.settings.padding_top }}px;
+    --pr-pad-bottom: {{ section.settings.padding_bottom }}px;
+  }
+
+  .pr {
+    padding-block: var(--pr-pad-top) var(--pr-pad-bottom);
+    background: {{ section.settings.background_color }};
+    color: var(--color-foreground, #292421);
+  }
+
+  .pr__track {
+    display: flex;
+    gap: 16px;
+    overflow-x: auto;
+    scroll-snap-type: x proximity;
+    scrollbar-width: none;
+    padding: 4px 20px 16px;
+    scroll-padding-inline: 20px;
+  }
+
+  .pr__track::-webkit-scrollbar {
+    display: none;
+  }
+
+  @media (min-width: 750px) {
+    .pr__track {
+      padding-inline: 40px;
+      scroll-padding-inline: 40px;
+    }
+  }
+
+  .pr__card {
+    flex: 0 0 min(260px, 70vw);
+    scroll-snap-align: start;
+    display: flex;
+    flex-direction: column;
+    background: #fff;
+    color: #1a1a1a;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 1px 8px rgb(0 0 0 / 0.08);
+  }
+
+  .pr__media {
+    aspect-ratio: 1;
+    background: rgb(0 0 0 / 0.05);
+  }
+
+  .pr__media img,
+  .pr__media svg {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .pr__stars {
+    align-self: center;
+    margin-top: -16px;
+    position: relative;
+    padding: 5px 12px;
+    border-radius: 6px;
+    background: #fff;
+    box-shadow: 0 2px 8px rgb(0 0 0 / 0.12);
+    color: #2e7d32;
+    letter-spacing: 2px;
+    font-size: 1.05rem;
+    line-height: 1;
+  }
+
+  .pr__stars .is-off {
+    color: #d0d0d0;
+  }
+
+  .pr__body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    padding: 14px 16px 20px;
+    text-align: center;
+    font-size: 0.85rem;
+    line-height: 1.5;
+  }
+
+  .pr__name {
+    font-size: 0.95rem;
+    font-weight: 500;
+  }
+
+  .pr__verified::after {
+    content: '\2713';
+    display: inline-grid;
+    place-items: center;
+    width: 14px;
+    height: 14px;
+    margin-inline-start: 5px;
+    border-radius: 50%;
+    background: #1a1a1a;
+    color: #fff;
+    font-size: 0.55rem;
+    vertical-align: middle;
+  }
+
+  .pr__text {
+    margin: 0;
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+</style>
+
+<section id="PhotoReviews-{{ section.id }}" class="pr">
+  {% render 'ornament-heading', heading: section.settings.heading, ornament: section.settings.ornament %}
+
+  <div class="pr__track">
+    {% for block in section.blocks %}
+      <article class="pr__card" {{ block.shopify_attributes }}>
+        <div class="pr__media">
+          {% if block.settings.image != blank %}
+            {{
+              block.settings.image
+              | image_url: width: 600
+              | image_tag: widths: '260, 400, 600', sizes: '260px', loading: 'lazy', alt: block.settings.name
+            }}
+          {% else %}
+            {{ 'lifestyle-2' | placeholder_svg_tag }}
+          {% endif %}
+        </div>
+        <div class="pr__stars" role="img" aria-label="{{ block.settings.rating }} out of 5">
+          {%- for i in (1..5) -%}
+            <span{% if i > block.settings.rating %} class="is-off"{% endif %}>&#9733;</span>
+          {%- endfor -%}
+        </div>
+        <div class="pr__body">
+          <span class="pr__name{% if block.settings.verified %} pr__verified{% endif %}">{{ block.settings.name | escape }}</span>
+          <p class="pr__text">{{ block.settings.text | escape }}</p>
+        </div>
+      </article>
+    {% endfor %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Photo reviews",
+  "tag": "div",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Reviews" },
+    {
+      "type": "select",
+      "id": "ornament",
+      "label": "Heading ornament",
+      "options": [
+        { "value": "leaf", "label": "Leaf" },
+        { "value": "diamond", "label": "Diamond" },
+        { "value": "none", "label": "None" }
+      ],
+      "default": "leaf"
+    },
+    { "type": "color", "id": "background_color", "label": "Background color", "default": "#00000000" },
+    { "type": "range", "id": "padding_top", "min": 0, "max": 100, "step": 4, "unit": "px", "label": "Top padding", "default": 40 },
+    { "type": "range", "id": "padding_bottom", "min": 0, "max": 100, "step": 4, "unit": "px", "label": "Bottom padding", "default": 40 }
+  ],
+  "blocks": [
+    {
+      "type": "review",
+      "name": "Review",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Customer photo" },
+        { "type": "range", "id": "rating", "min": 1, "max": 5, "step": 1, "label": "Rating", "default": 5 },
+        { "type": "text", "id": "name", "label": "Customer name", "default": "Customer N." },
+        { "type": "checkbox", "id": "verified", "label": "Show verified tick", "default": true },
+        { "type": "textarea", "id": "text", "label": "Review", "default": "I just loved it, very different style, unique and very good fitting and stitching quality." }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Photo reviews",
+      "blocks": [
+        { "type": "review" },
+        { "type": "review" },
+        { "type": "review" },
+        { "type": "review" }
+      ]
+    }
+  ]
+}
+{% endschema %}

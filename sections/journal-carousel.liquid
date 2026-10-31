@@ -1,0 +1,165 @@
+<style>
+  #JournalCarousel-{{ section.id }} {
+    --jc-pad-top: {{ section.settings.padding_top }}px;
+    --jc-pad-bottom: {{ section.settings.padding_bottom }}px;
+  }
+
+  .jc {
+    padding-block: var(--jc-pad-top) var(--jc-pad-bottom);
+    background: {{ section.settings.background_color }};
+    color: var(--color-foreground, #292421);
+  }
+
+  .jc__track {
+    display: flex;
+    gap: 18px;
+    overflow-x: auto;
+    scroll-snap-type: x proximity;
+    scrollbar-width: none;
+    padding: 4px 20px 20px;
+    scroll-padding-inline: 20px;
+  }
+
+  .jc__track::-webkit-scrollbar {
+    display: none;
+  }
+
+  @media (min-width: 750px) {
+    .jc__track {
+      padding-inline: 40px;
+      scroll-padding-inline: 40px;
+    }
+  }
+
+  .jc__card {
+    flex: 0 0 min(340px, 84vw);
+    scroll-snap-align: start;
+    display: flex;
+    flex-direction: column;
+    background: #fff;
+    color: #1a1a1a;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 2px 14px rgb(0 0 0 / 0.08);
+    text-decoration: none;
+  }
+
+  .jc__media {
+    aspect-ratio: 16 / 10;
+    background: rgb(0 0 0 / 0.05);
+  }
+
+  .jc__media img,
+  .jc__media svg {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .jc__body {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 18px 18px 22px;
+  }
+
+  .jc__title {
+    margin: 0;
+    font-family: var(--font-heading--family, serif);
+    font-size: 1.1rem;
+    font-weight: 400;
+    line-height: 1.35;
+  }
+
+  .jc__date {
+    font-size: 0.68rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    opacity: 0.65;
+  }
+
+  .jc__excerpt {
+    margin: 0;
+    font-size: 0.82rem;
+    line-height: 1.6;
+    opacity: 0.8;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .jc__empty {
+    padding: 40px 20px;
+    text-align: center;
+    opacity: 0.7;
+  }
+</style>
+
+<section id="JournalCarousel-{{ section.id }}" class="jc">
+  {% render 'ornament-heading', heading: section.settings.heading, ornament: section.settings.ornament %}
+
+  {% assign blog = section.settings.blog %}
+  {% if blog != blank and blog.articles_count > 0 %}
+    <div class="jc__track">
+      {% for article in blog.articles limit: section.settings.post_count %}
+        <a class="jc__card" href="{{ article.url }}">
+          <div class="jc__media">
+            {% if article.image %}
+              {{
+                article.image
+                | image_url: width: 800
+                | image_tag: widths: '340, 500, 800', sizes: '340px', loading: 'lazy', alt: article.image.alt | default: article.title
+              }}
+            {% else %}
+              {{ 'lifestyle-1' | placeholder_svg_tag }}
+            {% endif %}
+          </div>
+          <div class="jc__body">
+            <h3 class="jc__title">{{ article.title | escape }}</h3>
+            {% if section.settings.show_date %}
+              <span class="jc__date">{{ article.published_at | time_tag: '%B %d, %Y' }}</span>
+            {% endif %}
+            {% if section.settings.show_excerpt %}
+              <p class="jc__excerpt">{{ article.excerpt_or_content | strip_html | truncate: 140 }}</p>
+            {% endif %}
+          </div>
+        </a>
+      {% endfor %}
+    </div>
+  {% else %}
+    <p class="jc__empty">Choose a blog with articles for this section.</p>
+  {% endif %}
+</section>
+
+{% schema %}
+{
+  "name": "Journal carousel",
+  "tag": "div",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Journal" },
+    {
+      "type": "select",
+      "id": "ornament",
+      "label": "Heading ornament",
+      "options": [
+        { "value": "leaf", "label": "Leaf" },
+        { "value": "diamond", "label": "Diamond" },
+        { "value": "none", "label": "None" }
+      ],
+      "default": "leaf"
+    },
+    { "type": "blog", "id": "blog", "label": "Blog" },
+    { "type": "range", "id": "post_count", "min": 2, "max": 12, "step": 1, "label": "Articles to show", "default": 6 },
+    { "type": "checkbox", "id": "show_date", "label": "Show date", "default": true },
+    { "type": "checkbox", "id": "show_excerpt", "label": "Show excerpt", "default": true },
+    { "type": "color", "id": "background_color", "label": "Background color", "default": "#00000000" },
+    { "type": "range", "id": "padding_top", "min": 0, "max": 100, "step": 4, "unit": "px", "label": "Top padding", "default": 40 },
+    { "type": "range", "id": "padding_bottom", "min": 0, "max": 100, "step": 4, "unit": "px", "label": "Bottom padding", "default": 40 }
+  ],
+  "presets": [
+    { "name": "Journal carousel" }
+  ]
+}
+{% endschema %}

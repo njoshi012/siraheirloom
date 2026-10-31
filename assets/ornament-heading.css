@@ -1,0 +1,41 @@
+.orn-heading {
+  --orn-color: var(--color-primary, #b8975a);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(12px, 2.4vw, 28px);
+  padding-inline: 20px;
+  margin: 0 auto clamp(20px, 3vw, 36px);
+  text-align: center;
+}
+
+.orn-heading__title {
+  margin: 0;
+  font-family: var(--font-heading--family, serif);
+  font-weight: 400;
+  font-size: clamp(1.5rem, 3.4vw, 2.6rem);
+  line-height: 1.15;
+  letter-spacing: 0.02em;
+  color: inherit;
+}
+
+.orn-heading__mark {
+  flex: none;
+  display: inline-flex;
+  color: var(--orn-color);
+  opacity: 0.85;
+}
+
+.orn-heading__mark svg {
+  display: block;
+  width: clamp(26px, 4vw, 46px);
+  height: auto;
+}
+
+.orn-heading__mark--end {
+  transform: scaleX(-1);
+}
+
+.orn-heading--diamond .orn-heading__mark--end {
+  transform: none;
+}

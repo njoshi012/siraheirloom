@@ -1,0 +1,239 @@
+<style>
+  #OccasionCarousel-{{ section.id }} {
+    --oc-pad-top: {{ section.settings.padding_top }}px;
+    --oc-pad-bottom: {{ section.settings.padding_bottom }}px;
+    --oc-card-width: {{ section.settings.card_width }}px;
+  }
+
+  .oc {
+    padding-block: var(--oc-pad-top) var(--oc-pad-bottom);
+    background: {{ section.settings.background_color }};
+    color: var(--color-foreground, #292421);
+  }
+
+  .oc__stage {
+    position: relative;
+  }
+
+  .oc__track {
+    display: flex;
+    gap: clamp(14px, 3vw, 40px);
+    align-items: center;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    padding-block: 36px;
+    padding-inline: calc(50% - var(--oc-card-width) / 2);
+  }
+
+  .oc__track::-webkit-scrollbar {
+    display: none;
+  }
+
+  .oc__item {
+    --oc-d: 1;
+    position: relative;
+    flex: 0 0 var(--oc-card-width);
+    aspect-ratio: 3 / 4;
+    border-radius: 12px;
+    overflow: hidden;
+    scroll-snap-align: center;
+    transform: scale(calc(0.8 + (1 - var(--oc-d)) * 0.2));
+    opacity: calc(0.55 + (1 - var(--oc-d)) * 0.45);
+    box-shadow: 0 calc((1 - var(--oc-d)) * 18px) calc((1 - var(--oc-d)) * 36px) rgb(0 0 0 / calc((1 - var(--oc-d)) * 0.22));
+    transition: transform 0.15s linear, opacity 0.15s linear;
+    background: rgb(0 0 0 / 0.06);
+  }
+
+  .oc__item a {
+    position: absolute;
+    inset: 0;
+    display: block;
+    color: #fff;
+    text-decoration: none;
+  }
+
+  .oc__item img,
+  .oc__item svg {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .oc__item a::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgb(0 0 0 / 0.55), transparent 45%);
+  }
+
+  .oc__label {
+    position: absolute;
+    inset-inline: 12px;
+    inset-block-end: 16px;
+    z-index: 1;
+    text-align: center;
+    font-family: var(--font-heading--family, serif);
+    font-size: 1.05rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  .oc__arrow {
+    position: absolute;
+    inset-block-start: 50%;
+    z-index: 2;
+    width: 44px;
+    height: 44px;
+    margin-block-start: -22px;
+    border: 0;
+    border-radius: 50%;
+    background: rgb(104 82 62 / 0.85);
+    color: #fff;
+    font-size: 1.4rem;
+    line-height: 1;
+    cursor: pointer;
+    display: grid;
+    place-items: center;
+  }
+
+  .oc__arrow--prev {
+    inset-inline-start: 16px;
+  }
+
+  .oc__arrow--next {
+    inset-inline-end: 16px;
+  }
+
+  @media (max-width: 749px) {
+    .oc__arrow {
+      width: 36px;
+      height: 36px;
+      margin-block-start: -18px;
+    }
+  }
+</style>
+
+<section id="OccasionCarousel-{{ section.id }}" class="oc">
+  {% render 'ornament-heading', heading: section.settings.heading, ornament: section.settings.ornament %}
+
+  <occasion-carousel class="oc__stage">
+    <div class="oc__track" data-track>
+      {% for block in section.blocks %}
+        <div class="oc__item" data-item {{ block.shopify_attributes }}>
+          <a href="{{ block.settings.link | default: '#' }}">
+            {% if block.settings.image != blank %}
+              {{
+                block.settings.image
+                | image_url: width: 900
+                | image_tag: widths: '300, 450, 600, 900', sizes: '(min-width: 750px) 300px, 60vw', loading: 'lazy', alt: block.settings.title
+              }}
+            {% else %}
+              {{ 'product-apparel-1' | placeholder_svg_tag }}
+            {% endif %}
+            <span class="oc__label">{{ block.settings.title | escape }}</span>
+          </a>
+        </div>
+      {% endfor %}
+    </div>
+    <button type="button" class="oc__arrow oc__arrow--prev" data-prev aria-label="Previous">&#8249;</button>
+    <button type="button" class="oc__arrow oc__arrow--next" data-next aria-label="Next">&#8250;</button>
+  </occasion-carousel>
+</section>
+
+<script>
+  if (!customElements.get('occasion-carousel')) {
+    class OccasionCarousel extends HTMLElement {
+      connectedCallback() {
+        this.track = this.querySelector('[data-track]');
+        this.items = Array.from(this.querySelectorAll('[data-item]'));
+        this.onScroll = () => {
+          if (this.raf) return;
+          this.raf = requestAnimationFrame(() => {
+            this.raf = 0;
+            this.update();
+          });
+        };
+        this.track.addEventListener('scroll', this.onScroll, { passive: true });
+        window.addEventListener('resize', this.onScroll);
+        this.querySelector('[data-prev]').addEventListener('click', () => this.step(-1));
+        this.querySelector('[data-next]').addEventListener('click', () => this.step(1));
+        this.update();
+        const start = this.items[Math.floor(this.items.length / 2)];
+        if (start) this.track.scrollLeft = start.offsetLeft - (this.track.clientWidth - start.offsetWidth) / 2;
+      }
+
+      disconnectedCallback() {
+        window.removeEventListener('resize', this.onScroll);
+      }
+
+      step(direction) {
+        const item = this.items[0];
+        if (!item) return;
+        const gap = parseFloat(getComputedStyle(this.track).columnGap) || 0;
+        this.track.scrollBy({ left: direction * (item.offsetWidth + gap), behavior: 'smooth' });
+      }
+
+      update() {
+        const rect = this.track.getBoundingClientRect();
+        const center = rect.left + rect.width / 2;
+        this.items.forEach((item) => {
+          const box = item.getBoundingClientRect();
+          const distance = Math.abs(box.left + box.width / 2 - center) / (box.width + 20);
+          item.style.setProperty('--oc-d', Math.min(distance, 1).toFixed(3));
+        });
+      }
+    }
+
+    customElements.define('occasion-carousel', OccasionCarousel);
+  }
+</script>
+
+{% schema %}
+{
+  "name": "Occasion carousel",
+  "tag": "div",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Shop By Occasion" },
+    {
+      "type": "select",
+      "id": "ornament",
+      "label": "Heading ornament",
+      "options": [
+        { "value": "leaf", "label": "Leaf" },
+        { "value": "diamond", "label": "Diamond" },
+        { "value": "none", "label": "None" }
+      ],
+      "default": "leaf"
+    },
+    { "type": "range", "id": "card_width", "min": 180, "max": 380, "step": 10, "unit": "px", "label": "Card width", "default": 300 },
+    { "type": "color", "id": "background_color", "label": "Background color", "default": "#00000000" },
+    { "type": "range", "id": "padding_top", "min": 0, "max": 100, "step": 4, "unit": "px", "label": "Top padding", "default": 40 },
+    { "type": "range", "id": "padding_bottom", "min": 0, "max": 100, "step": 4, "unit": "px", "label": "Bottom padding", "default": 40 }
+  ],
+  "blocks": [
+    {
+      "type": "occasion",
+      "name": "Occasion card",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Image" },
+        { "type": "text", "id": "title", "label": "Title", "default": "Occasion" },
+        { "type": "url", "id": "link", "label": "Link" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Occasion carousel",
+      "blocks": [
+        { "type": "occasion" },
+        { "type": "occasion" },
+        { "type": "occasion" },
+        { "type": "occasion" },
+        { "type": "occasion" }
+      ]
+    }
+  ]
+}
+{% endschema %}
