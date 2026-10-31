@@ -323,168 +323,51 @@
         "padding_bottom": 40
       }
     },
-    "collection_list_Nfi4Jy": {
-      "type": "collection-list",
+    "why_shop_with_us_WUeTV9": {
+      "type": "why-shop-with-us",
       "blocks": {
-        "group_wCeRVK": {
-          "type": "group",
-          "name": "t:names.header",
+        "feature_dKjBew": {
+          "type": "feature",
           "settings": {
-            "content_direction": "column",
-            "vertical_on_mobile": true,
-            "horizontal_alignment": "flex-start",
-            "vertical_alignment": "center",
-            "align_baseline": false,
-            "horizontal_alignment_flex_direction_column": "flex-start",
-            "vertical_alignment_flex_direction_column": "center",
-            "gap": 12,
-            "width": "fill",
-            "custom_width": 100,
-            "width_mobile": "fill",
-            "custom_width_mobile": 100,
-            "height": "fit",
-            "custom_height": 100,
-            "background_media": "none",
-            "background_color": "",
-            "video_position": "cover",
-            "background_image_position": "cover",
-            "toggle_overlay": false,
-            "overlay_color": "#00000026",
-            "overlay_style": "solid",
-            "gradient_direction": "to top",
-            "border": "none",
-            "border_width": 1,
-            "border_opacity": 100,
-            "border_color": "",
-            "border_radius": 0,
-            "link": "",
-            "open_in_new_tab": false,
-            "placeholder": "",
-            "padding-block-start": 0,
-            "padding-block-end": 0,
-            "padding-inline-start": 0,
-            "padding-inline-end": 0
-          },
-          "blocks": {
-            "text_pNE4Nm": {
-              "type": "text",
-              "name": "t:names.text",
-              "settings": {
-                "text": "<h2>Shop by Category</h2>",
-                "width": "fit-content",
-                "max_width": "normal",
-                "alignment": "left",
-                "type_preset": "h2",
-                "font": "var(--font-body--family)",
-                "font_size": "",
-                "line_height": "normal",
-                "letter_spacing": "normal",
-                "case": "none",
-                "wrap": "pretty",
-                "text_color": "",
-                "background": false,
-                "background_color": "#00000026",
-                "corner_radius": 0,
-                "padding-block-start": 0,
-                "padding-block-end": 16,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              },
-              "blocks": {}
-            }
-          },
-          "block_order": [
-            "text_pNE4Nm"
-          ]
+            "icon": "shipping",
+            "text": "Free Shipping"
+          }
         },
-        "static-collection-card": {
-          "type": "_collection-card",
-          "name": "t:names.collection_card",
-          "static": true,
+        "feature_b4xG3m": {
+          "type": "feature",
           "settings": {
-            "placement": "on_image",
-            "horizontal_alignment": "flex-start",
-            "vertical_alignment": "flex-start",
-            "collection_card_gap": 8,
-            "background_color": "",
-            "border": "none",
-            "border_width": 1,
-            "border_opacity": 100,
-            "border_color": "",
-            "border_radius": 0
-          },
-          "blocks": {
-            "collection_title_xfGGVh": {
-              "type": "collection-title",
-              "name": "t:names.collection_title",
-              "settings": {
-                "width": "fit-content",
-                "max_width": "normal",
-                "alignment": "left",
-                "type_preset": "rte",
-                "font": "var(--font-body--family)",
-                "font_size": "",
-                "line_height": "normal",
-                "letter_spacing": "normal",
-                "case": "none",
-                "wrap": "pretty",
-                "background": true,
-                "background_color": "#ffffff",
-                "text_color": "{{ settings.color_palette.foreground }}",
-                "corner_radius": 0,
-                "padding-block-start": 4,
-                "padding-block-end": 4,
-                "padding-inline-start": 8,
-                "padding-inline-end": 8
-              },
-              "blocks": {}
-            },
-            "collection-card-image": {
-              "type": "_collection-card-image",
-              "name": "t:names.collection_card_image",
-              "static": true,
-              "settings": {
-                "image_ratio": "adapt",
-                "toggle_overlay": false,
-                "overlay_color": "#00000026",
-                "overlay_style": "solid",
-                "gradient_direction": "to top",
-                "border": "none",
-                "border_width": 1,
-                "border_opacity": 100,
-                "border_color": "",
-                "border_radius": 0
-              },
-              "blocks": {}
-            }
-          },
-          "block_order": [
-            "collection_title_xfGGVh"
-          ]
+            "icon": "payment",
+            "text": "Secure Payment"
+          }
+        },
+        "feature_jE7z8U": {
+          "type": "feature",
+          "settings": {
+            "icon": "return",
+            "text": "7 days return"
+          }
+        },
+        "feature_fiJFri": {
+          "type": "feature",
+          "settings": {
+            "icon": "quality",
+            "text": "Quality Guaranteed"
+          }
         }
       },
       "block_order": [
-        "group_wCeRVK"
+        "feature_dKjBew",
+        "feature_b4xG3m",
+        "feature_jE7z8U",
+        "feature_fiJFri"
       ],
-      "name": "t:names.collections_grid",
+      "name": "Why shop with us",
       "settings": {
-        "collection_list": [],
-        "layout_type": "grid",
-        "carousel_on_mobile": false,
-        "columns": 3,
-        "mobile_columns": "2",
-        "mobile_card_size": "60cqw",
-        "columns_gap": 8,
-        "bento_gap": 8,
-        "rows_gap": 8,
-        "max_collections": 4,
-        "icons_style": "arrow",
-        "icons_shape": "none",
-        "section_width": "page-width",
-        "gap": 12,
-        "background_color": "#faf7f0",
-        "padding-block-start": 48,
-        "padding-block-end": 48
+        "heading": "Why Shop With Us ?",
+        "ornament": "diamond",
+        "background_color": "#00000000",
+        "padding_top": 40,
+        "padding_bottom": 40
       }
     },
     "section_Le3y9x": {
@@ -602,7 +485,7 @@
     "custom_hero_section_aKngyR",
     "product_list_fa6P9H",
     "shop_by_occasion_wPqJ7d",
-    "collection_list_Nfi4Jy",
+    "why_shop_with_us_WUeTV9",
     "section_Le3y9x"
   ]
 }
