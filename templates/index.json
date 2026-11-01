@@ -16,6 +16,7 @@
           "type": "slide",
           "settings": {
             "media_type": "image",
+            "desktop_image": "shopify://shop_images/SIRA_Heirloom__Heritage_Couture_Collection.png",
             "mobile_image": "shopify://shop_images/Sira_Heirloom_Collection_Portrait-1086-1448.png",
             "desktop_video_url": "",
             "mobile_video_url": "",
