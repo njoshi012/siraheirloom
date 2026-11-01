@@ -27,25 +27,10 @@
             "horizontal_alignment": "left",
             "vertical_alignment": "middle"
           }
-        },
-        "slide_A9GKHi": {
-          "type": "slide",
-          "settings": {
-            "media_type": "image",
-            "desktop_video_url": "",
-            "mobile_video_url": "",
-            "heading": "",
-            "description": "",
-            "button_text": "",
-            "button_link": "",
-            "horizontal_alignment": "left",
-            "vertical_alignment": "middle"
-          }
         }
       },
       "block_order": [
-        "slide_T3TCy7",
-        "slide_A9GKHi"
+        "slide_T3TCy7"
       ],
       "name": "Premium Hero Slideshow",
       "settings": {
