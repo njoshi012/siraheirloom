@@ -27,10 +27,27 @@
             "horizontal_alignment": "left",
             "vertical_alignment": "middle"
           }
+        },
+        "slide_NghpQt": {
+          "type": "slide",
+          "settings": {
+            "media_type": "image",
+            "desktop_image": "shopify://shop_images/Sindoor.webp",
+            "mobile_image": "shopify://shop_images/Sindoor_M.webp",
+            "desktop_video_url": "",
+            "mobile_video_url": "",
+            "heading": "",
+            "description": "",
+            "button_text": "",
+            "button_link": "shopify://collections/new-arrivals",
+            "horizontal_alignment": "left",
+            "vertical_alignment": "middle"
+          }
         }
       },
       "block_order": [
-        "slide_T3TCy7"
+        "slide_T3TCy7",
+        "slide_NghpQt"
       ],
       "name": "Premium Hero Slideshow",
       "settings": {
