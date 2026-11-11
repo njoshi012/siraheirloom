@@ -1865,3 +1865,12 @@ product-card .buy-buttons-block .add-to-cart-button,
   padding-block: 0.5rem;
   font-size: 0.875rem;
 }
+
+/* Product card: align Add to cart buttons on the same line across a row */
+:is(.product-grid__item, .resource-list__item) .product-card .product-grid__card {
+  height: 100%;
+}
+
+.product-grid__card .buy-buttons-block {
+  margin-block-start: auto;
+}
