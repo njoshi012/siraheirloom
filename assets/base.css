@@ -1871,6 +1871,6 @@ product-card .buy-buttons-block .add-to-cart-button,
   height: 100%;
 }
 
-.product-grid__card .buy-buttons-block {
+.product-grid__card product-price {
   margin-block-start: auto;
 }
