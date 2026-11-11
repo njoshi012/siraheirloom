@@ -354,45 +354,32 @@
         "occasion_ajdpfk": {
           "type": "occasion",
           "settings": {
-            "title": "Occasion",
-            "link": ""
+            "image": "shopify://shop_images/DSC02041-7.jpg",
+            "title": "Gulnaar",
+            "link": "shopify://collections/gulnaar"
           }
         },
         "occasion_kiLeP8": {
           "type": "occasion",
           "settings": {
-            "title": "Occasion",
-            "link": ""
+            "image": "shopify://shop_images/DSC01909.jpg",
+            "title": "Sindoor",
+            "link": "shopify://collections/sindoor"
           }
         },
         "occasion_ViGzGn": {
           "type": "occasion",
           "settings": {
-            "title": "Occasion",
-            "link": ""
-          }
-        },
-        "occasion_mRxgRU": {
-          "type": "occasion",
-          "settings": {
-            "title": "Occasion",
-            "link": ""
-          }
-        },
-        "occasion_Q3qFJM": {
-          "type": "occasion",
-          "settings": {
-            "title": "Occasion",
-            "link": ""
+            "image": "shopify://shop_images/DSC01991.jpg",
+            "title": "Riwayat",
+            "link": "shopify://collections/riwayat"
           }
         }
       },
       "block_order": [
         "occasion_ajdpfk",
         "occasion_kiLeP8",
-        "occasion_ViGzGn",
-        "occasion_mRxgRU",
-        "occasion_Q3qFJM"
+        "occasion_ViGzGn"
       ],
       "name": "Shop by occasion",
       "settings": {
