@@ -239,15 +239,15 @@
                 "show_sale_price_first": true,
                 "show_installments": false,
                 "show_tax_info": false,
-                "type_preset": "h6",
+                "type_preset": "custom",
                 "width": "100%",
                 "alignment": "left",
                 "font": "var(--font-body--family)",
-                "font_size": "1rem",
+                "font_size": "1.25rem",
                 "line_height": "normal",
                 "letter_spacing": "normal",
                 "case": "none",
-                "text_color": "",
+                "text_color": "#926F34",
                 "padding-block-start": 0,
                 "padding-block-end": 0,
                 "padding-inline-start": 0,
@@ -301,10 +301,10 @@
                   "type": "add-to-cart",
                   "static": true,
                   "settings": {
-                    "style_class": "button-secondary",
-                    "custom_button_background": "{{ settings.color_palette.foreground }}",
-                    "custom_button_text": "{{ settings.color_palette.background }}",
-                    "custom_button_border": "{{ settings.color_palette.background }}"
+                    "style_class": "button-custom",
+                    "custom_button_background": "#926F34",
+                    "custom_button_text": "#FFF8EE",
+                    "custom_button_border": "#926F34"
                   },
                   "blocks": {}
                 },

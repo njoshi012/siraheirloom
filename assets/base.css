@@ -1857,3 +1857,11 @@ main > .shopify-section:first-child .section:not(.disable-section-top-offset) {
     margin-top: calc(var(--header-height) * var(--transparent-header-offset-boolean) * -1);
   }
 }
+
+/* Product card add to cart: compact button */
+product-card .buy-buttons-block .add-to-cart-button,
+.product-card .buy-buttons-block .add-to-cart-button {
+  min-height: 40px;
+  padding-block: 0.5rem;
+  font-size: 0.875rem;
+}
