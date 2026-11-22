@@ -16,8 +16,8 @@
           "type": "slide",
           "settings": {
             "media_type": "image",
-            "desktop_image": "shopify://shop_images/Gulnaar.webp",
-            "mobile_image": "shopify://shop_images/Gulnaar_M.webp",
+            "desktop_image": "shopify://shop_images/gulnar-desktop.jpg",
+            "mobile_image": "shopify://shop_images/gulnar-mobile.jpg",
             "desktop_video_url": "",
             "mobile_video_url": "",
             "heading": "",
@@ -247,7 +247,7 @@
                 "line_height": "normal",
                 "letter_spacing": "normal",
                 "case": "none",
-                "text_color": "#926F34",
+                "text_color": "#926f34",
                 "padding-block-start": 0,
                 "padding-block-end": 0,
                 "padding-inline-start": 0,
@@ -302,9 +302,9 @@
                   "static": true,
                   "settings": {
                     "style_class": "button-custom",
-                    "custom_button_background": "#926F34",
-                    "custom_button_text": "#FFF8EE",
-                    "custom_button_border": "#926F34"
+                    "custom_button_background": "#926f34",
+                    "custom_button_text": "#fff8ee",
+                    "custom_button_border": "#926f34"
                   },
                   "blocks": {}
                 },
