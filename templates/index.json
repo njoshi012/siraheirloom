@@ -30,6 +30,7 @@
         },
         "slide_NghpQt": {
           "type": "slide",
+          "disabled": true,
           "settings": {
             "media_type": "image",
             "desktop_image": "shopify://shop_images/Sindoor.webp",
@@ -48,8 +49,8 @@
           "type": "slide",
           "settings": {
             "media_type": "image",
-            "desktop_image": "shopify://shop_images/riwayat.webp",
-            "mobile_image": "shopify://shop_images/riwayat_M.webp",
+            "desktop_image": "shopify://shop_images/riwayat-desktop.jpg",
+            "mobile_image": "shopify://shop_images/riwayat-mobile.jpg",
             "desktop_video_url": "",
             "mobile_video_url": "",
             "heading": "",
