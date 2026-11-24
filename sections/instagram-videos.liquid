@@ -117,12 +117,13 @@
   .ig__empty { text-align: center; padding: 24px 16px; opacity: 0.6; }
 </style>
 
+{%- assign ig_profile = section.settings.profile_url | default: 'https://www.instagram.com/siraheirloom' -%}
 <section id="IG-{{ section.id }}" class="ig">
   {% render 'ornament-heading', heading: section.settings.heading, ornament: section.settings.ornament %}
 
   {%- if section.settings.handle != blank -%}
     <p class="ig__sub">
-      <a href="{{ section.settings.profile_url }}" target="_blank" rel="noopener noreferrer">@{{ section.settings.handle }}</a>
+      <a href="{{ ig_profile }}" target="_blank" rel="noopener noreferrer">@{{ section.settings.handle }}</a>
     </p>
   {%- endif -%}
 
@@ -133,7 +134,7 @@
       </button>
       <div class="ig__track" data-track>
         {%- for block in section.blocks -%}
-          {%- assign link = block.settings.link | default: section.settings.profile_url -%}
+          {%- assign link = block.settings.link | default: ig_profile -%}
           <a
             class="ig__item"
             href="{{ link }}"
@@ -162,9 +163,9 @@
     <p class="ig__empty">Add video blocks to show your Instagram reels.</p>
   {%- endif -%}
 
-  {%- if section.settings.button_label != blank and section.settings.profile_url != blank -%}
+  {%- if section.settings.button_label != blank and ig_profile != blank -%}
     <div class="ig__cta">
-      <a class="ig__button" href="{{ section.settings.profile_url }}" target="_blank" rel="noopener noreferrer">{{ section.settings.button_label }}</a>
+      <a class="ig__button" href="{{ ig_profile }}" target="_blank" rel="noopener noreferrer">{{ section.settings.button_label }}</a>
     </div>
   {%- endif -%}
 </section>
@@ -237,7 +238,7 @@
       "default": "diamond"
     },
     { "type": "text", "id": "handle", "label": "Instagram handle", "default": "siraheirloom" },
-    { "type": "url", "id": "profile_url", "label": "Instagram profile link", "default": "https://www.instagram.com/siraheirloom" },
+    { "type": "url", "id": "profile_url", "label": "Instagram profile link" },
     { "type": "text", "id": "button_label", "label": "Button text", "info": "Leave empty to hide the button.", "default": "Follow on Instagram" },
     { "type": "range", "id": "per_view_desktop", "min": 3, "max": 6, "step": 1, "label": "Videos per view (desktop)", "default": 4 },
     { "type": "color", "id": "background_color", "label": "Background" },
