@@ -45,7 +45,8 @@
         "menu_2": {
           "type": "menu",
           "settings": {
-            "title": "Education"
+            "title": "Education",
+            "menu": ""
           }
         }
       },
@@ -56,7 +57,22 @@
         "menu_1",
         "menu_2"
       ],
-      "settings": {}
+      "settings": {
+        "logo_width": 180,
+        "tagline": "SIRA brings the grandeur of Punjabi craftsmanship into contemporary festive dressing. Rich embroidery, beautiful colours and effortless silhouettes, made to be lived in, loved, and remembered.",
+        "show_newsletter": true,
+        "newsletter_text": "Sign up and be the first to know about our latest product releases, news, collaborations, and exclusive offers.",
+        "email_placeholder": "Email",
+        "button_label": "Subscribe",
+        "success_message": "Thanks for subscribing!",
+        "copyright": "",
+        "background_color": "#292421",
+        "text_color": "#faf7f0",
+        "button_background": "#926f34",
+        "button_text_color": "#ffffff",
+        "padding_top": 64,
+        "padding_bottom": 40
+      }
     }
   },
   "order": [
