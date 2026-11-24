@@ -471,7 +471,7 @@
           "type": "text",
           "name": "t:names.text",
           "settings": {
-            "text": "<p>SIRA brings the grandeur of Punjabi craftsmanship into contemporary festive dressing. Rich embroidery, beautiful colours and effortless silhouettes, made to be lived in, loved, and remembered.</p>",
+            "text": "<p><strong>Punjab in the silhouette. India in every stitch.</strong></p><p>Sira Heirloom draws on the craft traditions of the whole country, from the phulkari of Punjab to the [chikankari of Lucknow, zardozi, gota patti, kantha], and brings them together in pieces that feel regal yet effortless, traditional yet distinctly modern.<br/></p>",
             "width": "fit-content",
             "max_width": "normal",
             "alignment": "left",
@@ -496,9 +496,8 @@
         "button_8nRjdC": {
           "type": "button",
           "name": "t:names.button",
-          "disabled": true,
           "settings": {
-            "label": "",
+            "label": "Read our story →",
             "link": "shopify://collections/all",
             "open_in_new_tab": false,
             "style_class": "button",
