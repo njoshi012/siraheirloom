@@ -134,6 +134,7 @@
       </button>
       <div class="ig__track" data-track>
         {%- for block in section.blocks -%}
+          {%- if block.settings.video == blank and block.settings.poster == blank and request.design_mode == false -%}{%- continue -%}{%- endif -%}
           {%- assign link = block.settings.link | default: ig_profile -%}
           <a
             class="ig__item"
