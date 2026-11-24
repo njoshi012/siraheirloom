@@ -410,6 +410,7 @@
         },
         "feature_jE7z8U": {
           "type": "feature",
+          "disabled": true,
           "settings": {
             "icon": "return",
             "text": "7 days return"
