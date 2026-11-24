@@ -551,8 +551,38 @@
     },
     "instagram_videos_k3Zq8w": {
       "type": "instagram-videos",
-      "blocks": {},
-      "block_order": [],
+      "blocks": {
+        "video_reel1": {
+          "type": "video",
+          "settings": {
+            "video": "shopify://files/videos/reel-1.mp4"
+          }
+        },
+        "video_reel2": {
+          "type": "video",
+          "settings": {
+            "video": "shopify://files/videos/reel-2.mp4"
+          }
+        },
+        "video_reel3": {
+          "type": "video",
+          "settings": {
+            "video": "shopify://files/videos/reel-3.mp4"
+          }
+        },
+        "video_reel4": {
+          "type": "video",
+          "settings": {
+            "video": "shopify://files/videos/reel-4.mp4"
+          }
+        }
+      },
+      "block_order": [
+        "video_reel1",
+        "video_reel2",
+        "video_reel3",
+        "video_reel4"
+      ],
       "settings": {}
     }
   },
