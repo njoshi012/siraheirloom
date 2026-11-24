@@ -16,8 +16,8 @@
           "type": "slide",
           "settings": {
             "media_type": "image",
-            "desktop_image": "shopify://shop_images/Pitara_Desktop_jpg.jpg",
-            "mobile_image": "shopify://shop_images/Pitara_Mobile_jpg.jpg",
+            "desktop_image": "shopify://shop_images/pitara_desktop_new.jpg",
+            "mobile_image": "shopify://shop_images/pitara_mobile_new.jpg",
             "desktop_video_url": "",
             "mobile_video_url": "",
             "heading": "",
@@ -32,8 +32,8 @@
           "type": "slide",
           "settings": {
             "media_type": "image",
-            "desktop_image": "shopify://shop_images/Malika_Desktop_jpg.jpg",
-            "mobile_image": "shopify://shop_images/Malika_Mobile_jpg.jpg",
+            "desktop_image": "shopify://shop_images/malika_desktop_new.jpg",
+            "mobile_image": "shopify://shop_images/malika_mobile_new.jpg",
             "desktop_video_url": "",
             "mobile_video_url": "",
             "heading": "",
@@ -48,8 +48,8 @@
           "type": "slide",
           "settings": {
             "media_type": "image",
-            "desktop_image": "shopify://shop_images/sindoor_desktop_jpg.jpg",
-            "mobile_image": "shopify://shop_images/sindoor_mobile_jpg.jpg",
+            "desktop_image": "shopify://shop_images/sindoor_desktop_new.jpg",
+            "mobile_image": "shopify://shop_images/sindoor_mobile_new.jpg",
             "desktop_video_url": "",
             "mobile_video_url": "",
             "heading": "",
