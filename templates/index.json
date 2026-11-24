@@ -462,19 +462,12 @@
             "video": "shopify://files/videos/That perfect shade of red, all those beautiful intricate details, and a look he just won’t be ab.mp4",
             "link": ""
           }
-        },
-        "video_nnK8XC": {
-          "type": "video",
-          "settings": {
-            "link": ""
-          }
         }
       },
       "block_order": [
         "video_xDzJbX",
         "video_8NYxKX",
-        "video_VTpWKr",
-        "video_nnK8XC"
+        "video_VTpWKr"
       ],
       "name": "Instagram videos",
       "settings": {
