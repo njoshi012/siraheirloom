@@ -17,7 +17,7 @@
         "announcement_BxgCk9": {
           "type": "_announcement",
           "settings": {
-            "text": "Welcome to SIRA",
+            "text": "WELCOME TO SIRA",
             "link": "",
             "font": "var(--font-body--family)",
             "font_size": "0.875rem",
@@ -31,7 +31,7 @@
         "announcement_newin01": {
           "type": "_announcement",
           "settings": {
-            "text": "Pan India Free Shipping",
+            "text": "FREE SHIPPING PAN INDIA",
             "link": "",
             "font": "var(--font-body--family)",
             "font_size": "0.875rem",
