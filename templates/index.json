@@ -479,6 +479,7 @@
         "button_8nRjdC": {
           "type": "button",
           "name": "t:names.button",
+          "disabled": true,
           "settings": {
             "label": "",
             "link": "shopify://collections/all",
