@@ -439,6 +439,53 @@
         "padding_bottom": 40
       }
     },
+    "instagram_videos_9PkMEW": {
+      "type": "instagram-videos",
+      "blocks": {
+        "video_xDzJbX": {
+          "type": "video",
+          "settings": {
+            "link": ""
+          }
+        },
+        "video_8NYxKX": {
+          "type": "video",
+          "settings": {
+            "link": ""
+          }
+        },
+        "video_VTpWKr": {
+          "type": "video",
+          "settings": {
+            "link": ""
+          }
+        },
+        "video_nnK8XC": {
+          "type": "video",
+          "settings": {
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "video_xDzJbX",
+        "video_8NYxKX",
+        "video_VTpWKr",
+        "video_nnK8XC"
+      ],
+      "name": "Instagram videos",
+      "settings": {
+        "heading": "Follow Us on Instagram",
+        "ornament": "diamond",
+        "handle": "siraheirloom",
+        "profile_url": "",
+        "button_label": "Follow on Instagram",
+        "per_view_desktop": 4,
+        "background_color": "",
+        "padding_top": 40,
+        "padding_bottom": 40
+      }
+    },
     "section_Le3y9x": {
       "type": "section",
       "blocks": {
@@ -548,12 +595,6 @@
         "padding-block-start": 48,
         "padding-block-end": 48
       }
-    },
-    "instagram_videos_k3Zq8w": {
-      "type": "instagram-videos",
-      "blocks": {},
-      "block_order": [],
-      "settings": {}
     }
   },
   "order": [
@@ -561,7 +602,7 @@
     "product_list_fa6P9H",
     "shop_by_occasion_wPqJ7d",
     "why_shop_with_us_WUeTV9",
-    "instagram_videos_k3Zq8w",
+    "instagram_videos_9PkMEW",
     "section_Le3y9x"
   ]
 }
