@@ -548,6 +548,12 @@
         "padding-block-start": 48,
         "padding-block-end": 48
       }
+    },
+    "instagram_videos_k3Zq8w": {
+      "type": "instagram-videos",
+      "blocks": {},
+      "block_order": [],
+      "settings": {}
     }
   },
   "order": [
@@ -555,6 +561,7 @@
     "product_list_fa6P9H",
     "shop_by_occasion_wPqJ7d",
     "why_shop_with_us_WUeTV9",
+    "instagram_videos_k3Zq8w",
     "section_Le3y9x"
   ]
 }
