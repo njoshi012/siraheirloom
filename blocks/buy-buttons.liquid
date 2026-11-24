@@ -43,6 +43,7 @@
   {% endif %}
   {{ block.shopify_attributes }}
 >
+  {% render 'size-chart' %}
   {%- if product != blank -%}
     {%- assign product_form_id = 'BuyButtons-ProductForm-' | append: section.id -%}
     <product-form-component

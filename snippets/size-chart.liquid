@@ -1,0 +1,67 @@
+{%- comment -%}
+  "Size Chart" link + popup. Shown on product pages only.
+  Image: assets/size-chart.png
+{%- endcomment -%}
+{%- if template.name == 'product' -%}
+  {%- assign sc_id = 'SizeChart-' | append: block.id -%}
+  <button type="button" class="size-chart__trigger" onclick="document.getElementById('{{ sc_id }}').showModal()">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="2" y="8" width="20" height="8" rx="1"/><path d="M6 8v4M10 8v3M14 8v4M18 8v3"/></svg>
+    <span>Size Chart</span>
+  </button>
+  <dialog
+    id="{{ sc_id }}"
+    class="size-chart__dialog"
+    onclick="if (event.target === this) this.close()"
+  >
+    <button type="button" class="size-chart__close" aria-label="Close" onclick="this.closest('dialog').close()">&times;</button>
+    <img
+      src="{{ 'size-chart.png' | asset_url }}"
+      alt="Size chart"
+      loading="lazy"
+      width="1536"
+      height="1024"
+    >
+  </dialog>
+  <style>
+    .size-chart__trigger {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-block: 4px 12px;
+      padding: 0;
+      background: none;
+      border: 0;
+      color: inherit;
+      font: inherit;
+      font-size: 0.875rem;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      cursor: pointer;
+    }
+    .size-chart__dialog {
+      width: min(94vw, 900px);
+      max-height: 92vh;
+      padding: 0;
+      border: 0;
+      background: #faf3ea;
+      overflow: auto;
+    }
+    .size-chart__dialog::backdrop { background: rgb(0 0 0 / 0.6); }
+    .size-chart__dialog img { display: block; width: 100%; height: auto; }
+    .size-chart__close {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      z-index: 1;
+      width: 36px;
+      height: 36px;
+      border: 0;
+      border-radius: 50%;
+      background: rgb(255 255 255 / 0.9);
+      color: #292421;
+      font-size: 24px;
+      line-height: 1;
+      cursor: pointer;
+    }
+  </style>
+{%- endif -%}
