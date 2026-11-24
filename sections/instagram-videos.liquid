@@ -144,7 +144,7 @@
             {%- if block.settings.video != blank -%}
               {{
                 block.settings.video
-                | video_tag: autoplay: true, loop: true, muted: true, controls: false, playsinline: true, image_size: '540x960', preload: 'metadata'
+                | video_tag: autoplay: false, loop: true, muted: true, controls: false, playsinline: true, image_size: '540x960', preload: 'none'
               }}
             {%- elsif block.settings.poster != blank -%}
               {{ block.settings.poster | image_url: width: 600 | image_tag: loading: 'lazy' }}
@@ -191,6 +191,26 @@
           track.addEventListener('scroll', update, { passive: true });
           window.addEventListener('resize', update);
           update();
+
+          // Lazy-play: videos load and play only while visible, pause when scrolled away.
+          const videos = track.querySelectorAll('video');
+          if ('IntersectionObserver' in window) {
+            const io = new IntersectionObserver(
+              (entries) => {
+                entries.forEach((entry) => {
+                  const v = entry.target;
+                  if (entry.isIntersecting) {
+                    const p = v.play();
+                    if (p && p.catch) p.catch(() => {});
+                  } else {
+                    v.pause();
+                  }
+                });
+              },
+              { root: null, threshold: 0.4 }
+            );
+            videos.forEach((v) => io.observe(v));
+          }
         }
       }
     );
