@@ -28,24 +28,10 @@
           },
           "blocks": {}
         },
-        "announcement_prepaid1": {
-          "type": "_announcement",
-          "settings": {
-            "text": "Additional Upto 10% off on Prepaid Orders",
-            "link": "",
-            "font": "var(--font-body--family)",
-            "font_size": "0.875rem",
-            "weight": "700",
-            "letter_spacing": "normal",
-            "case": "none",
-            "text_color": "#ffffff"
-          },
-          "blocks": {}
-        },
         "announcement_newin01": {
           "type": "_announcement",
           "settings": {
-            "text": "Handcrafted festive wear, new arrivals every week",
+            "text": "PAN India Free Shipping",
             "link": "",
             "font": "var(--font-body--family)",
             "font_size": "0.875rem",
@@ -58,7 +44,6 @@
         }
       },
       "block_order": [
-        "announcement_prepaid1",
         "announcement_BxgCk9",
         "announcement_newin01"
       ],
@@ -66,7 +51,7 @@
       "settings": {
         "speed": 4,
         "section_width": "full-width",
-        "background_color": "#926f34",
+        "background_color": "#000000",
         "divider_width": 0,
         "divider_color": "{{ settings.color_palette.color2 }}",
         "padding-block-start": 11,
