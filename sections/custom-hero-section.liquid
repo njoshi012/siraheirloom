@@ -732,9 +732,9 @@
       const autoplayEnabled = root.dataset.autoplay === 'true';
       const autoplaySpeed = Number(root.dataset.autoplaySpeed) || 5000;
       const pauseOnHover = root.dataset.pauseOnHover === 'true';
-      const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
       let index = slides.findIndex((slide) => slide.classList.contains('is-active'));
       let timer = null;
+      let isHovered = false;
 
       if (index < 0) index = 0;
 
@@ -797,8 +797,8 @@
       };
 
       const startAutoplay = () => {
-        if (!autoplayEnabled || prefersReducedMotion || slides.length < 2) return;
         stopAutoplay();
+        if (!autoplayEnabled || slides.length < 2 || isHovered || document.hidden) return;
         timer = window.setInterval(() => {
           goTo(index + 1);
         }, autoplaySpeed);
@@ -840,9 +840,15 @@
         }
       });
 
-      if (pauseOnHover) {
-        root.addEventListener('mouseenter', stopAutoplay);
-        root.addEventListener('mouseleave', startAutoplay);
+      if (pauseOnHover && window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+        root.addEventListener('mouseenter', () => {
+          isHovered = true;
+          stopAutoplay();
+        });
+        root.addEventListener('mouseleave', () => {
+          isHovered = false;
+          startAutoplay();
+        });
       }
 
       document.addEventListener('visibilitychange', () => {
