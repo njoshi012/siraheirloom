@@ -1874,3 +1874,9 @@ product-card .buy-buttons-block .add-to-cart-button,
 .product-grid__card product-price {
   margin-block-start: auto;
 }
+
+/* Product cards: hide Add to cart button (orders go through product page / WhatsApp) */
+product-card .buy-buttons-block,
+.product-card .buy-buttons-block {
+  display: none;
+}
