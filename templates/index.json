@@ -462,12 +462,20 @@
             "video": "shopify://files/videos/That perfect shade of red, all those beautiful intricate details, and a look he just won’t be ab.mp4",
             "link": ""
           }
+        },
+        "video_EyU7qY": {
+          "type": "video",
+          "settings": {
+            "video": "shopify://files/videos/For the moments that deserve to be remembered, and the traditions that live on through us. ✨Sira.mp4",
+            "link": ""
+          }
         }
       },
       "block_order": [
         "video_xDzJbX",
         "video_8NYxKX",
-        "video_VTpWKr"
+        "video_VTpWKr",
+        "video_EyU7qY"
       ],
       "name": "Instagram videos",
       "settings": {
