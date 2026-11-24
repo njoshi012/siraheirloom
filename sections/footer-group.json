@@ -46,7 +46,7 @@
           "type": "menu",
           "settings": {
             "title": "Policies",
-            "menu": ""
+            "menu": "policies"
           }
         }
       },
