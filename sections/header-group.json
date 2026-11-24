@@ -31,7 +31,7 @@
         "announcement_newin01": {
           "type": "_announcement",
           "settings": {
-            "text": "PAN INDIA FREE SHIPPING",
+            "text": "Pan India Free Shipping",
             "link": "",
             "font": "var(--font-body--family)",
             "font_size": "0.875rem",
