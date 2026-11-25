@@ -422,13 +422,21 @@
             "icon": "quality",
             "text": "Quality Guaranteed"
           }
+        },
+        "feature_8cUAyD": {
+          "type": "feature",
+          "settings": {
+            "icon": "check",
+            "text": "Hassle Free Exchange"
+          }
         }
       },
       "block_order": [
         "feature_dKjBew",
         "feature_b4xG3m",
         "feature_jE7z8U",
-        "feature_fiJFri"
+        "feature_fiJFri",
+        "feature_8cUAyD"
       ],
       "name": "Why shop with us",
       "settings": {
