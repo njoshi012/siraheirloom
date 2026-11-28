@@ -19,6 +19,15 @@
     color: var(--color, inherit);
   }
 
+  /* Pasted content can contain a nested flex wrapper that adds its own gap on top of paragraph margins */
+  .page-content .layout-panel-flex {
+    gap: 0;
+  }
+
+  .page-content p {
+    margin-block: 0 1em;
+  }
+
   .page-content a {
     color: currentcolor;
   }
